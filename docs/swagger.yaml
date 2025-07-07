@@ -1,0 +1,80 @@
+swagger: "2.0"
+info:
+  description: "API for user authentication including sign up and sign in."
+  version: "1.0.0"
+  title: "Authentication API"
+host: "localhost:5000"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /signup:
+    post:
+      summary: "User Registration"
+      description: "Endpoint for user sign up."
+      parameters:
+        - name: "user"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                format: "email"
+              password:
+                type: "string"
+                minLength: 6
+      responses:
+        201:
+          description: "User created successfully."
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "User registered successfully."
+        400:
+          description: "Invalid input."
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Invalid email or password."
+
+  /signin:
+    post:
+      summary: "User Login"
+      description: "Endpoint for user sign in."
+      parameters:
+        - name: "user"
+          in: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                format: "email"
+              password:
+                type: "string"
+      responses:
+        200:
+          description: "User logged in successfully."
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Login successful."
+              token:
+                type: "string"
+        401:
+          description: "Unauthorized."
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                example: "Invalid email or password."
